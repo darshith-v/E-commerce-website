@@ -41,7 +41,7 @@ products.forEach((product) => {
 
       <div class="product-spacer"></div>
 
-      <div class="added-to-cart">
+      <div class="added-to-cart js-added-to-cart-${product.id}">
         <img src="images/icons/checkmark.png">
         Added
       </div>
@@ -53,44 +53,63 @@ products.forEach((product) => {
     </div>
   `
 })
-
+const addedMessageTimeouts = {};
 
 document.querySelector('.js-products-grid').innerHTML = productsHTML
 
 document.querySelectorAll('.js-add-to-cart-button')
   .forEach((button) => {
     button.addEventListener('click', () => {
-
+    
       const productId = button.dataset.productId;
-
+    
       let matchingItem;
-
+    
       cart.forEach((item) => {
         if (productId === item.productId) {
           matchingItem = item;
         }
       });
-
+    
       const quantitySelector = document.querySelector(
         `.js-quantity-selector-${productId}`);
-
+      
       const quantity = Number(quantitySelector.value);
-
+      
       if (matchingItem) {
         matchingItem.quantity += quantity;
       } else {
         cart.push({
-          productId: productId,
-          quantity: quantity
+          productId,
+          quantity
         });
       }
-  
-      let cartQuantity = 0;
       
+      let cartQuantity = 0;
+    
       cart.forEach((item) => {
         cartQuantity += item.quantity;
       });
-      
+    
       document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
-    });
-  });
+    
+    
+      const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`);
+    
+      addedMessage.classList.add('js-added-to-cart');
+      
+      setTimeout(() => {
+        const previousTimeoutId = addedMessageTimeouts[productId];
+        if (previousTimeoutId) {
+          clearTimeout(previousTimeoutId);
+        }
+      
+        const timeoutId = setTimeout(() => {
+          addedMessage.classList.remove('js-added-to-cart')
+        }, 2000);
+      
+        addedMessageTimeouts[productId] = timeoutId;
+        
+      });
+    });    
+});
