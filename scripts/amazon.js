@@ -1,4 +1,4 @@
-import { cart } from '../data/cart.js';
+import { cart , addedtoCart} from '../data/cart.js';
 import { products } from '../data/products.js';
 
 let productsHTML = '';
@@ -56,6 +56,38 @@ products.forEach((product) => {
     </div>
   `
 })
+
+
+function updateCartQuantity(productId) {
+  let cartQuantity = 0;
+    
+  cart.forEach((cartItem) => {
+    cartQuantity += cartItem.quantity;
+  });
+
+  document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+
+
+  const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`);
+
+  addedMessage.classList.add('js-added-to-cart');
+  
+  setTimeout(() => {
+    const previousTimeoutId = addedMessageTimeouts[productId];
+    if (previousTimeoutId) {
+      clearTimeout(previousTimeoutId);
+    }
+  
+    const timeoutId = setTimeout(() => {
+      addedMessage.classList.remove('js-added-to-cart')
+    }, 2000);
+  
+    addedMessageTimeouts[productId] = timeoutId;
+    
+  });
+}
+
+
 const addedMessageTimeouts = {};
 
 document.querySelector('.js-products-grid').innerHTML = productsHTML
@@ -66,33 +98,8 @@ document.querySelectorAll('.js-add-to-cart-button')
     
       const productId = button.dataset.productId;
     
-      addedtoCart();
+      addedtoCart(productId);
       
-      let cartQuantity = 0;
-    
-      cart.forEach((item) => {
-        cartQuantity += item.quantity;
-      });
-    
-      document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
-    
-    
-      const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`);
-    
-      addedMessage.classList.add('js-added-to-cart');
-      
-      setTimeout(() => {
-        const previousTimeoutId = addedMessageTimeouts[productId];
-        if (previousTimeoutId) {
-          clearTimeout(previousTimeoutId);
-        }
-      
-        const timeoutId = setTimeout(() => {
-          addedMessage.classList.remove('js-added-to-cart')
-        }, 2000);
-      
-        addedMessageTimeouts[productId] = timeoutId;
-        
-      });
+      updateCartQuantity(productId);
     });    
 });

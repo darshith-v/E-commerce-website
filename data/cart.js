@@ -1,11 +1,11 @@
 export const cart = [];
 
-function addedtoCart() {
+export function addedtoCart(productId) {
   let matchingItem;
       
-  cart.forEach((item) => {
-    if (productId === item.productId) {
-      matchingItem = item;
+  cart.forEach((cartItem) => {
+    if (productId === cartItem.productId) {
+      matchingItem = cartItem;
     }
   });
   
