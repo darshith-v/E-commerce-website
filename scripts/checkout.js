@@ -111,3 +111,11 @@ document.querySelectorAll('.js-delete-link')
     })
 
   })
+
+  let checkoutItems = 0;
+    
+  cart.forEach((checkoutItem) => {
+    checkoutItems += checkoutItem.quantity;
+  });  
+
+  document.querySelector('.js-return-to-home').innerHTML = `${checkoutItems} items`;
