@@ -108,10 +108,14 @@ document.querySelectorAll('.js-delete-link')
       const container = document.querySelector(`.js-cart-item-container-${productId}`);
 
       container.remove();
+
+      updateCartQuantity();
     })
 
   })
 
+function updateCartQuantity() {
+    
   let checkoutItems = 0;
     
   cart.forEach((checkoutItem) => {
@@ -119,3 +123,6 @@ document.querySelectorAll('.js-delete-link')
   });  
 
   document.querySelector('.js-return-to-home').innerHTML = `${checkoutItems} items`;
+}
+  
+updateCartQuantity();
