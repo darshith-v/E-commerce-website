@@ -54,3 +54,36 @@ export function removeFromCart(productId) {
 
   saveDataLocally()
 }
+
+const addedMessageTimeouts = {};
+
+export function calculateCartQuantity(productId) {
+  let cartQuantity = 0;
+    
+  cart.forEach((cartItem) => {
+    cartQuantity += cartItem.quantity;
+  });
+
+  document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+
+
+  const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`);
+
+  addedMessage.classList.add('js-added-to-cart');
+  
+  setTimeout(() => {
+    const previousTimeoutId = addedMessageTimeouts[productId];
+    if (previousTimeoutId) {
+      clearTimeout(previousTimeoutId);
+    }
+  
+    const timeoutId = setTimeout(() => {
+      addedMessage.classList.remove('js-added-to-cart')
+    }, 2000);
+  
+    addedMessageTimeouts[productId] = timeoutId;
+    
+  });
+  return cartQuantity;
+}
+
