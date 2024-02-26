@@ -40,6 +40,10 @@ cart.forEach((cartItem) => {
           </span>
           <span class="update-quantity-link link-primary js-update-quantity-link">
             Update
+            <span class="link-primary">
+              <input class="quantity-input">
+              <span class="save-quantity-link">Save</span>
+            </span>  
           </span>
           <span class="delete-quantity-link link-primary
           js-delete-link" data-product-id = ${matchingProduct.id}>
@@ -125,6 +129,7 @@ updateCartQuantity();
 document.querySelectorAll('.js-update-quantity-link')
   .forEach((link) => {
     link.addEventListener('click', () => {
+      
       console.log('update');
     })
   })

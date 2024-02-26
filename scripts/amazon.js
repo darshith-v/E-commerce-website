@@ -56,7 +56,7 @@ products.forEach((product) => {
       </button>
     </div>
   `
-})
+});
 
 function updateCartQuantity() {
   const cartQuantity = calculateCartQuantity();
