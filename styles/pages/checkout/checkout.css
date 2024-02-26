@@ -213,3 +213,7 @@
 .quantity-input{
   width: 30px;
 }
+
+.is-editing-quantity{
+  display: none;
+}
