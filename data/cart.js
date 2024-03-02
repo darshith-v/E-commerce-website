@@ -15,6 +15,7 @@ function saveDataLocally() {
   localStorage.setItem('cart', JSON.stringify(cart));
 }
 
+
 export function addedtoCart(productId) {
   let matchingItem;
       
@@ -54,7 +55,6 @@ export function removeFromCart(productId) {
 
   saveDataLocally()
 }
-
 
 
 export function calculateCartQuantity() {
