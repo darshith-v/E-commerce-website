@@ -1,3 +1,7 @@
+import { cart } from "../../data/cart";
+
 export function renderPaymentSummary() {
-  console.log('payment function');
+  cart.forEach((cartItem) => {
+    
+  });
 }
