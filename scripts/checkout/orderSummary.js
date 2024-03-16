@@ -202,6 +202,8 @@ export function renderOrderSummary() {
         updateDeliveryOption(productId, deliveryOptionId);
 
         renderOrderSummary();
+
+        renderPaymentSummary();
       });
     });
 
